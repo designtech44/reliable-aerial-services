@@ -1,13 +1,1169 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
     <title>Reliable Aerial Services - Professional Drone Services</title>
-    <meta name="description" content="Professional drone services in Georgia - aerial photography, videography, roof inspections by Dean Dyer" />
-  </head>
-  <body>
-    <noscript>You need to enable JavaScript to run this app.</noscript>
-    <div id="root"></div>
-  </body>
+    <link rel="icon" type="image/x-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🚁</text></svg>">
+    <style>
+        :root {
+            --primary-color: #0056b3;
+            --secondary-color: #004494;
+            --accent-color: #ff9900;
+            --light-gray: #f8f9fa;
+            --dark-gray: #343a40;
+            --text-color: #333;
+            --border-color: #ddd;
+            --shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            scroll-behavior: smooth;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header Styles */
+        header {
+            background-color: white;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: clamp(1.2rem, 3vw, 1.5rem);
+            font-weight: 700;
+            color: var(--primary-color);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .logo:hover {
+            color: var(--accent-color);
+        }
+        
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(45deg, var(--primary-color), var(--accent-color));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            color: white;
+        }
+        
+        nav {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: clamp(15px, 3vw, 30px);
+        }
+        
+        nav ul li a {
+            text-decoration: none;
+            color: var(--text-color);
+            font-weight: 600;
+            font-size: clamp(0.9rem, 2vw, 1rem);
+            transition: color 0.3s ease;
+            position: relative;
+        }
+        
+        nav ul li a:hover {
+            color: var(--primary-color);
+        }
+        
+        nav ul li a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--accent-color);
+            transition: width 0.3s ease;
+        }
+        
+        nav ul li a:hover::after {
+            width: 100%;
+        }
+        
+        .cta-button {
+            background: linear-gradient(45deg, var(--accent-color), #ff7700);
+            color: white;
+            padding: clamp(10px, 2vw, 12px) clamp(16px, 3vw, 24px);
+            border-radius: 25px;
+            font-weight: 600;
+            font-size: clamp(0.9rem, 2vw, 1rem);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(255, 153, 0, 0.3);
+            white-space: nowrap;
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 153, 0, 0.4);
+        }
+        
+        /* Mobile Menu */
+        .mobile-menu-toggle {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            padding: 5px;
+        }
+        
+        .mobile-menu-toggle span {
+            width: 25px;
+            height: 3px;
+            background-color: var(--primary-color);
+            margin: 3px 0;
+            transition: 0.3s;
+        }
+        
+        .mobile-menu-toggle.active span:nth-child(1) {
+            transform: rotate(-45deg) translate(-5px, 6px);
+        }
+        
+        .mobile-menu-toggle.active span:nth-child(2) {
+            opacity: 0;
+        }
+        
+        .mobile-menu-toggle.active span:nth-child(3) {
+            transform: rotate(45deg) translate(-5px, -6px);
+        }
+        
+        .mobile-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            background-color: white;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            z-index: 999;
+        }
+        
+        .mobile-menu.active {
+            display: block;
+        }
+        
+        .mobile-menu ul {
+            flex-direction: column;
+            gap: 0;
+        }
+        
+        .mobile-menu ul li {
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .mobile-menu ul li:last-child {
+            border-bottom: none;
+        }
+        
+        .mobile-menu ul li a {
+            display: block;
+            padding: 15px 20px;
+        }
+        
+        .mobile-cta {
+            padding: 15px 20px;
+            border-top: 1px solid var(--border-color);
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, rgba(0,86,179,0.8), rgba(255,153,0,0.8));
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            position: relative;
+        }
+        
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            position: relative;
+            z-index: 1;
+            padding: 20px;
+        }
+        
+        .hero h1 {
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            margin-bottom: 20px;
+            font-weight: 700;
+            line-height: 1.2;
+        }
+        
+        .hero p {
+            font-size: clamp(1.1rem, 3vw, 1.4rem);
+            margin-bottom: 30px;
+            opacity: 0.95;
+        }
+        
+        /* Services Section */
+        .services {
+            padding: clamp(60px, 10vw, 100px) 0;
+            background-color: var(--light-gray);
+        }
+        
+        .section-heading {
+            text-align: center;
+            margin-bottom: clamp(40px, 8vw, 60px);
+        }
+        
+        .section-heading h2 {
+            font-size: clamp(2rem, 4vw, 2.5rem);
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+        
+        .section-heading p {
+            color: #6c757d;
+            font-size: clamp(1rem, 2.5vw, 1.1rem);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: clamp(20px, 4vw, 30px);
+        }
+        
+        .service-card {
+            background-color: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        }
+        
+        .service-image {
+            height: 200px;
+            background: linear-gradient(45deg, var(--primary-color), var(--accent-color));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 3rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .service-content {
+            padding: 25px;
+        }
+        
+        .service-content h3 {
+            font-size: clamp(1.2rem, 3vw, 1.4rem);
+            margin-bottom: 12px;
+            color: var(--secondary-color);
+            font-weight: 600;
+        }
+        
+        .service-content p {
+            color: #666;
+            line-height: 1.6;
+            font-size: clamp(0.9rem, 2vw, 1rem);
+        }
+        
+        /* About Section */
+        .about {
+            padding: clamp(60px, 10vw, 100px) 0;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+        }
+        
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: clamp(30px, 8vw, 60px);
+            align-items: start;
+        }
+        
+        .about-text h2 {
+            font-size: clamp(2rem, 4vw, 2.5rem);
+            color: var(--primary-color);
+            margin-bottom: 25px;
+            font-weight: 700;
+        }
+        
+        .about-text p {
+            margin-bottom: 20px;
+            color: #555;
+            font-size: clamp(1rem, 2vw, 1.05rem);
+            line-height: 1.7;
+        }
+        
+        /* Gallery Section - 25 slots */
+        .gallery {
+            padding: clamp(60px, 10vw, 100px) 0;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+        }
+        
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: clamp(15px, 3vw, 20px);
+        }
+        
+        .gallery-item {
+            background: linear-gradient(45deg, var(--primary-color), var(--accent-color));
+            border-radius: 15px;
+            height: clamp(150px, 25vw, 200px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: clamp(1rem, 3vw, 1.5rem);
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .gallery-item:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+        
+        .gallery-placeholder {
+            text-align: center;
+            opacity: 0.8;
+            font-size: clamp(0.8rem, 2vw, 1rem);
+            line-height: 1.3;
+        }
+        
+        /* Drone Community Section */
+        .drone-community {
+            padding: clamp(60px, 10vw, 100px) 0;
+            background-color: white;
+        }
+        
+        .community-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: clamp(20px, 4vw, 30px);
+            margin-top: 40px;
+        }
+        
+        .community-card {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+        }
+        
+        .community-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        }
+        
+        .community-card h3 {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            font-size: clamp(1.2rem, 3vw, 1.4rem);
+        }
+        
+        .community-card p {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+        
+        .community-link {
+            color: var(--accent-color);
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+        
+        .community-link:hover {
+            color: var(--primary-color);
+        }
+        
+        /* Partners Section */
+        .advertisers {
+            padding: clamp(60px, 10vw, 100px) 0;
+            background-color: var(--light-gray);
+        }
+        
+        .advertisers-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: clamp(20px, 4vw, 30px);
+            margin-top: 40px;
+        }
+        
+        .advertiser-card {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+        }
+        
+        .advertiser-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .advertiser-logo {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(45deg, var(--primary-color), var(--accent-color));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 2rem;
+            color: white;
+        }
+        
+        /* Contact Section */
+        .contact {
+            padding: clamp(60px, 10vw, 100px) 0;
+            background-color: white;
+        }
+        
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: clamp(30px, 8vw, 60px);
+        }
+        
+        .contact-info h3 {
+            font-size: clamp(1.3rem, 3vw, 1.5rem);
+            color: var(--primary-color);
+            margin-bottom: 25px;
+            font-weight: 600;
+        }
+        
+        .contact-info p {
+            margin-bottom: 15px;
+            color: #555;
+            font-size: clamp(0.9rem, 2vw, 1rem);
+        }
+        
+        .contact-form {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            padding: clamp(30px, 6vw, 40px);
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+        }
+        
+        .contact-form .form-group {
+            margin-bottom: 25px;
+        }
+        
+        .contact-form label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--secondary-color);
+            font-size: clamp(0.9rem, 2vw, 1rem);
+        }
+        
+        .contact-form input,
+        .contact-form textarea,
+        .contact-form select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            font-size: clamp(0.9rem, 2vw, 1rem);
+            transition: border-color 0.3s ease;
+            background-color: white;
+        }
+        
+        .contact-form input:focus,
+        .contact-form textarea:focus,
+        .contact-form select:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(0,86,179,0.1);
+        }
+        
+        .contact-form textarea {
+            height: 120px;
+            resize: vertical;
+        }
+        
+        .contact-form button {
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: clamp(0.9rem, 2vw, 1rem);
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,86,179,0.3);
+            width: 100%;
+        }
+        
+        .contact-form button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0,86,179,0.4);
+        }
+        
+        /* Footer */
+        footer {
+            background: linear-gradient(135deg, var(--dark-gray) 0%, #2c3e50 100%);
+            color: white;
+            padding: clamp(40px, 8vw, 60px) 0 20px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: clamp(30px, 6vw, 40px);
+            margin-bottom: 40px;
+        }
+        
+        .footer-column h3 {
+            font-size: clamp(1.1rem, 2.5vw, 1.3rem);
+            margin-bottom: 20px;
+            color: var(--accent-color);
+            font-weight: 600;
+        }
+        
+        .footer-column p {
+            color: #adb5bd;
+            line-height: 1.6;
+            margin-bottom: 15px;
+            font-size: clamp(0.9rem, 2vw, 1rem);
+        }
+        
+        .footer-column ul {
+            list-style: none;
+        }
+        
+        .footer-column ul li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-column ul li a {
+            color: #adb5bd;
+            text-decoration: none;
+            transition: color 0.3s ease;
+            font-size: clamp(0.9rem, 2vw, 1rem);
+        }
+        
+        .footer-column ul li a:hover {
+            color: var(--accent-color);
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .social-links a {
+            color: white;
+            text-decoration: none;
+            font-size: 1.2rem;
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(45deg, var(--primary-color), var(--accent-color));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+        
+        .social-links a:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid #495057;
+            color: #adb5bd;
+            font-size: clamp(0.8rem, 2vw, 0.9rem);
+        }
+        
+        .newsletter-form {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+            flex-wrap: wrap;
+        }
+        
+        .newsletter-form input {
+            flex: 1;
+            min-width: 200px;
+            padding: 10px;
+            border: 1px solid #495057;
+            border-radius: 5px;
+            background-color: #495057;
+            color: white;
+        }
+        
+        .newsletter-form input::placeholder {
+            color: #adb5bd;
+        }
+        
+        .newsletter-form button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            background: linear-gradient(45deg, var(--accent-color), #ff7700);
+            color: white;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+        
+        .newsletter-form button:hover {
+            transform: translateY(-2px);
+        }
+        
+        /* Enhanced Responsive Design */
+        @media (max-width: 768px) {
+            .mobile-menu-toggle {
+                display: flex;
+            }
+            
+            nav ul {
+                display: none;
+            }
+            
+            .desktop-cta {
+                display: none;
+            }
+            
+            .about-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .gallery-grid {
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            }
+            
+            .services-grid,
+            .community-grid,
+            .advertisers-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 15px;
+            }
+            
+            .services-grid,
+            .gallery-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .gallery-item {
+                height: 200px;
+            }
+            
+            .logo span {
+                display: none;
+            }
+            
+            .newsletter-form {
+                flex-direction: column;
+            }
+            
+            .newsletter-form input {
+                min-width: unset;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <a class="logo" href="#home">
+                    <div class="logo-icon">🚁</div>
+                    <span>Reliable Aerial Services</span>
+                </a>
+                <nav>
+                    <ul>
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#services">Services</a></li>
+                        <li><a href="#about">About</a></li>
+                        <li><a href="#gallery">Gallery</a></li>
+                        <li><a href="#community">Community</a></li>
+                        <li><a href="#partners">Partners</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                    <a class="cta-button desktop-cta" href="#contact">Get a Quote</a>
+                </nav>
+                <div class="mobile-menu-toggle" onclick="toggleMobileMenu()">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+            <div class="mobile-menu" id="mobileMenu">
+                <ul>
+                    <li><a href="#home" onclick="closeMobileMenu()">Home</a></li>
+                    <li><a href="#services" onclick="closeMobileMenu()">Services</a></li>
+                    <li><a href="#about" onclick="closeMobileMenu()">About</a></li>
+                    <li><a href="#gallery" onclick="closeMobileMenu()">Gallery</a></li>
+                    <li><a href="#community" onclick="closeMobileMenu()">Community</a></li>
+                    <li><a href="#partners" onclick="closeMobileMenu()">Partners</a></li>
+                    <li><a href="#contact" onclick="closeMobileMenu()">Contact</a></li>
+                </ul>
+                <div class="mobile-cta">
+                    <a class="cta-button" href="#contact" onclick="closeMobileMenu()">Get a Quote</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section id="home" class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Professional Drone Services for Every Need</h1>
+                <p>Reliable Aerial Services offers cutting-edge drone solutions for photography, videography, inspections, and more. Experience excellence from above.</p>
+                <a href="#services" class="cta-button">Explore Our Services</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="services" id="services">
+        <div class="container">
+            <div class="section-heading">
+                <h2>Our Services</h2>
+                <p>We provide a wide range of professional drone services to meet your specific needs.</p>
+            </div>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-image">🚁</div>
+                    <div class="service-content">
+                        <h3>Aerial Photography</h3>
+                        <p>High-resolution aerial images for real estate, construction, events, and more. Our professional-grade equipment ensures stunning results.</p>
+                    </div>
+                </div>
+                <div class="service-card">
+                    <div class="service-image">🎬</div>
+                    <div class="service-content">
+                        <h3>Aerial Videography</h3>
+                        <p>Cinematic aerial footage for films, commercials, events, and promotional content. We capture dynamic perspectives from above.</p>
+                    </div>
+                </div>
+                <div class="service-card">
+                    <div class="service-image">🏠</div>
+                    <div class="service-content">
+                        <h3>Real Estate Marketing</h3>
+                        <p>Showcase properties with stunning aerial photos and videos that highlight features and surroundings.</p>
+                    </div>
+                </div>
+                <div class="service-card">
+                    <div class="service-image">🔍</div>
+                    <div class="service-content">
+                        <h3>Roof Inspections</h3>
+                        <p>Detailed aerial inspections for insurance claims, maintenance planning, and property assessments.</p>
+                    </div>
+                </div>
+                <div class="service-card">
+                    <div class="service-image">🗺️</div>
+                    <div class="service-content">
+                        <h3>Mapping & Surveying</h3>
+                        <p>Precise aerial mapping and surveying services for construction, agriculture, and land development projects.</p>
+                    </div>
+                </div>
+                <div class="service-card">
+                    <div class="service-image">🎉</div>
+                    <div class="service-content">
+                        <h3>Event Coverage</h3>
+                        <p>Capture special events from unique aerial perspectives, creating memorable footage for weddings, festivals, and corporate events.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="about" id="about">
+    <div class="container">
+        <div class="about-content">
+            <div style="width: 500px; height: 500px; background: linear-gradient(45deg, var(--primary-color), var(--accent-color)); border-radius: 20px; display: flex; align-items: center; justify-content: center; margin: 0 auto;">
+                <img src="About_Page_logo.png" alt="Reliable Aerial Service" style="width: 500px; height: 500px; border-radius: 15px;">
+            </div>
+            <div class="about-text">
+                <h2>About Reliable Aerial Services</h2>
+                <p>Reliable Aerial Services is a solo-operated business run by me, Dean Dyer. I handle everything myself—from flying the drone to editing the final footage—because I believe great work is done with focus and care, not a big crew.</p>
+                <p>I fly a DJI Air 2S drone for all my projects, capturing sharp, stable, professional-grade aerial imagery. For post-production, I use CapCut, allowing me to deliver clean, engaging videos and polished photos every time.</p>
+                <p>Whether you're a homeowner needing a detailed roof inspection, a realtor looking to market a property from the sky, or a business wanting high-quality aerial footage—I'm here to help. Serving Fulton, DeKalb, and Gwinnett counties and open to projects beyond Georgia, I bring a personal touch and honest work ethic to every flight.</p>
+                <div style="display: flex; align-items: flex-start; gap: 30px; margin-top: 30px; max-width: 500px;">
+                    <a class="cta-button" href="#contact" style="align-self: flex-start;">Contact Us Today</a>
+                    <div style="text-align: center;">
+                        <img src="dean-photo.webp" alt="Dean Dyer - Professional Drone Pilot" style="width: 120px; height: 120px; border-radius: 50%; object-fit: cover; border: 4px solid var(--primary-color); box-shadow: 0 8px 20px rgba(0,0,0,0.15);">
+                        <p style="margin-top: 10px; font-weight: 600; color: var(--primary-color); font-size: 0.9rem;">Dean Dyer<br>Owner & Pilot</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+    <section class="gallery" id="gallery">
+        <div class="container">
+            <div class="section-heading">
+                <h2>Portfolio Gallery</h2>
+                <p>Explore our recent work and see the quality of our aerial photography and videography services. Gallery updates regularly with new content.</p>
+            </div>
+            <div class="gallery-grid">
+                <div class="gallery-item"><div class="gallery-placeholder">🚁<br>Aerial Shot 1</div></div>
+                <div class="gallery-item"><div class="gallery-placeholder">🎬<br>Video 1</div></div>
+                <div class="gallery-item"><div class="gallery-placeholder">🏠<br>Real Estate</div></div>
+                <div class="gallery-item"><div class="gallery-placeholder">🔍<br>Inspection</div></div>
+                <div class="gallery-item"><div class="gallery-placeholder">🚁<br>Aerial Shot 2</div></div>
+                <div class="gallery-item"><div class="gallery-placeholder">🎬<br>Video 2</div></div>
+                <div class="gallery-item"><div class="gallery-placeholder">🌆<br>City View</div></div>
+                <div class="gallery-item"><div class="gallery-placeholder">🏗️<br>Construction</div></div>
+                <div class="gallery-item"><div class="gallery-placeholder">🌅<br>Sunset Shot</div></div>
+                <div class="gallery-item"><div class="gallery-placeholder">🎉<br>Event</div></div>
+                <div class="gallery-item"><div class="gallery-placeholder">🚁<br>Aerial Shot 3</div></div>
+                <div class="gallery-item"><div class="gallery-placeholder">🎬<br>Video 3</div></div>
+                <div class="gallery-item"><div class="gallery-placeholder">🏠<br>Property 2</div></div>
+                <div class="gallery-item"><div class="gallery-placeholder">🗺️<br>Mapping</div></div>
+                <div class="gallery-item"><div class="gallery-placeholder">🌊<br>Water View</div></div>
+                <div class="gallery-item"><div class="gallery-placeholder">🚁<br>Aerial Shot 4</div></div>
+                <div class="gallery-item"><div class="gallery-placeholder">🎬<br>Video 4</div></div>
+                <div class="gallery-item"><div class="gallery-placeholder">🏢<br>Commercial</div></div>
+                <div class="gallery-item"><div class="gallery-placeholder">🌲<br>Nature</div></div>
+                <div class="gallery-item"><div class="gallery-placeholder">🚁<br>Aerial Shot 5</div></div>
+                <div class="gallery-item"><div class="gallery-placeholder">🎬<br>Video 5</div></div>
+                <div class="gallery-item"><div class="gallery-placeholder">🏭<br>Industrial</div></div>
+                <div class="gallery-item"><div class="gallery-placeholder">🌄<br>Landscape</div></div>
+                <div class="gallery-item"><div class="gallery-placeholder">🚁<br>Aerial Shot 6</div></div>
+                <div class="gallery-item"><div class="gallery-placeholder">🎬<br>Latest Video</div></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="drone-community" id="community">
+        <div class="container">
+            <div class="section-heading">
+                <h2>Drone Community</h2>
+                <p>Connect with fellow drone enthusiasts, pilots, and industry professionals through these amazing platforms.</p>
+            </div>
+            <div class="community-grid">
+                <div class="community-card">
+                    <h3>🌐 AirVuz</h3>
+                    <p>The world's leading drone video sharing platform. Discover incredible aerial footage from pilots worldwide and share your own stunning content.</p>
+                    <a href="https://www.airvuz.com/" target="_blank" class="community-link">Visit AirVuz →</a>
+                </div>
+                <div class="community-card">
+                    <h3>🚁 DJI Community</h3>
+                    <p>Official DJI community for pilots, creators, and drone enthusiasts. Get support, share experiences, and discover new techniques.</p>
+                    <a href="#" class="community-link">Join Community →</a>
+                </div>
+                <div class="community-card">
+                    <h3>📱 Drone Pilot Groups</h3>
+                    <p>Local and regional drone pilot groups for networking, meetups, and collaborative projects. Connect with pilots in your area.</p>
+                    <a href="#" class="community-link">Find Groups →</a>
+                </div>
+                <div class="community-card">
+                    <h3>🎓 Training & Education</h3>
+                    <p>Professional drone training, Part 107 certification courses, and advanced piloting techniques from industry experts.</p>
+                    <a href="#" class="community-link">Learn More →</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="advertisers" id="partners">
+        <div class="container">
+            <div class="section-heading">
+                <h2>Our Partners & Sponsors</h2>
+                <p>We're proud to work with industry-leading brands and local businesses that support professional drone services.</p>
+            </div>
+            <div class="advertisers-grid">
+                <div class="advertiser-card">
+                    <div class="advertiser-logo">🚁</div>
+                    <h3>DJI</h3>
+                    <p>Leading drone manufacturer</p>
+                </div>
+                <div class="advertiser-card">
+                    <div class="advertiser-logo">📷</div>
+                    <h3>Camera Plus</h3>
+                    <p>Professional camera equipment</p>
+                </div>
+                <div class="advertiser-card">
+                    <div class="advertiser-logo">🏠</div>
+                    <h3>Realty Partners</h3>
+                    <p>Real estate marketing</p>
+                </div>
+                <div class="advertiser-card">
+                    <div class="advertiser-logo">🏗️</div>
+                    <h3>BuildCorp</h3>
+                    <p>Construction services</p>
+                </div>
+                <div class="advertiser-card">
+                    <div class="advertiser-logo">📡</div>
+                    <h3>Tech Solutions</h3>
+                    <p>Drone technology</p>
+                </div>
+                <div class="advertiser-card">
+                    <div class="advertiser-logo">🎬</div>
+                    <h3>Media Pro</h3>
+                    <p>Video production</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="contact" id="contact">
+        <div class="container">
+            <div class="section-heading">
+                <h2>Get In Touch</h2>
+                <p>Ready to elevate your project? Contact us for a free consultation and quote.</p>
+            </div>
+            <div class="contact-grid">
+                <div class="contact-info">
+                    <h3>Contact Information</h3>
+                    <p><strong>📧 Email:</strong> dean@reliableaerialservice.com</p>
+                    <p><strong>📞 Phone:</strong> (770) 771-9212</p>
+                    <p><strong>📍 Address:</strong> 3841 Meeting Street<br/>Duluth, GA 30096</p>
+                    <p>We serve clients throughout Fulton, DeKalb, and Gwinnett counties, and are available for projects outside of Georgia.</p>
+                    
+                    <h3>Operating Hours</h3>
+                    <p><strong>Monday - Friday:</strong> 8:00 AM - 6:00 PM</p>
+                    <p><strong>Saturday:</strong> 9:00 AM - 3:00 PM</p>
+                    <p><strong>Sunday:</strong> Closed</p>
+                </div>
+                <div class="contact-form">
+                    <form id="contactForm">
+                        <div class="form-group">
+                            <label for="name">Name *</label>
+                            <input id="name" name="name" required type="text" placeholder="Your full name">
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email *</label>
+                            <input id="email" name="email" required type="email" placeholder="your.email@example.com">
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Phone</label>
+                            <input id="phone" name="phone" type="tel" placeholder="(770) 123-4567">
+                        </div>
+                        <div class="form-group">
+                            <label for="service">Service Interest</label>
+                            <select id="service" name="service">
+<!DOCTYPE html>
+<html lang="en">
+                                <option value="">Select a service...</option>
+                                <option value="aerial-photography">Aerial Photography</option>
+                                <option value="aerial-videography">Aerial Videography</option>
+                                <option value="real-estate">Real Estate Marketing</option>
+                                <option value="roof-inspection">Roof Inspection</option>
+                                <option value="mapping-surveying">Mapping & Surveying</option>
+                                <option value="event-coverage">Event Coverage</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Message *</label>
+                            <textarea id="message" name="message" required placeholder="Tell us about your project and any specific requirements..."></textarea>
+                        </div>
+                        <button type="submit">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Reliable Aerial Services</h3>
+                    <p>Professional drone services for photography, videography, inspections, mapping, and more. Serving clients throughout Georgia with reliable, high-quality aerial solutions.</p>
+                    <div class="social-links">
+                        <a href="https://www.facebook.com/dean.dyer/" target="_blank" rel="noopener noreferrer" aria-label="Facebook">📘</a>
+                        <a href="https://www.instagram.com/reliableaerialservices/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">📷</a>
+                        <a href="https://www.linkedin.com/in/dean-dyer/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">💼</a>
+                        <a href="https://bsky.app/profile/designtech63.bsky.social" target="_blank" rel="noopener noreferrer" aria-label="Bluesky">🌌</a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Services</h3>
+                    <ul>
+                        <li><a href="#services">Aerial Photography</a></li>
+                        <li><a href="#services">Aerial Videography</a></li>
+                        <li><a href="#services">Real Estate Marketing</a></li>
+                        <li><a href="#services">Roof Inspections</a></li>
+                        <li><a href="#services">Mapping & Surveying</a></li>
+                        <li><a href="#services">Event Coverage</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#services">Services</a></li>
+                        <li><a href="#about">About</a></li>
+                        <li><a href="#gallery">Gallery</a></li>
+                        <li><a href="#community">Community</a></li>
+                        <li><a href="#partners">Partners</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Newsletter</h3>
+                    <p>Subscribe to our newsletter for updates, drone industry news, and special offers.</p>
+                    <form class="newsletter-form" id="newsletterForm">
+                        <input type="email" placeholder="Your Email Address" required>
+                        <button type="submit">Subscribe</button>
+                    </form>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Reliable Aerial Services. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu functionality
+        function toggleMobileMenu() {
+            const mobileMenu = document.getElementById('mobileMenu');
+            const toggle = document.querySelector('.mobile-menu-toggle');
+            
+            mobileMenu.classList.toggle('active');
+            toggle.classList.toggle('active');
+        }
+
+        function closeMobileMenu() {
+            const mobileMenu = document.getElementById('mobileMenu');
+            const toggle = document.querySelector('.mobile-menu-toggle');
+            
+            mobileMenu.classList.remove('active');
+            toggle.classList.remove('active');
+        }
+
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', function(event) {
+            const mobileMenu = document.getElementById('mobileMenu');
+            const toggle = document.querySelector('.mobile-menu-toggle');
+            
+            if (!mobileMenu.contains(event.target) && !toggle.contains(event.target)) {
+                mobileMenu.classList.remove('active');
+                toggle.classList.remove('active');
+            }
+        });
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Form submission handling
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Get form data
+            const formData = new FormData(this);
+            const formObject = Object.fromEntries(formData);
+            
+            // Simple form validation
+            if (!formObject.name || !formObject.email || !formObject.message) {
+                alert('Please fill in all required fields.');
+                return;
+            }
+            
+            // For production, this will submit to your contact handler
+            // For now, show success message
+            alert('Thank you for your message! We will get back to you soon.');
+            this.reset();
+        });
+
+        // Newsletter form handling
+        document.getElementById('newsletterForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Thank you for subscribing to our newsletter!');
+            this.reset();
+        });
+
+        // Header scroll effect
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('header');
+            if (window.scrollY > 100) {
+                header.style.backgroundColor = 'rgba(255, 255, 255, 0.95)';
+                header.style.backdropFilter = 'blur(10px)';
+            } else {
+                header.style.backgroundColor = 'white';
+                header.style.backdropFilter = 'none';
+            }
+        });
+    </script>
+</body>
 </html>
