@@ -6,14 +6,6 @@
 
 # 
 
-# !\[Drone Services](https://img.shields.io/badge/Service-Drone%20Operations-blue)
-
-# !\[License](https://img.shields.io/badge/License-MIT-green)
-
-# !\[Status](https://img.shields.io/badge/Status-Active-brightgreen)
-
-# 
-
 # \## 🚁 About
 
 # 
